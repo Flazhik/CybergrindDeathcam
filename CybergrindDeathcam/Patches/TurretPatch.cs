@@ -15,7 +15,7 @@ namespace CybergrindDeathcam.Patches
     {
         [HarmonyTranspiler]
         [HarmonyPatch(typeof(Turret), "Shoot")]
-        private static IEnumerable<CodeInstruction> Mass_Shoot_Transpiler(IEnumerable<CodeInstruction> instructions)
+        private static IEnumerable<CodeInstruction> Turret_Shoot_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             var codeInstructions = instructions.ToList();
             for (var i = 0; i < codeInstructions.Count; i++)

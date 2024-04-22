@@ -74,7 +74,10 @@ namespace CybergrindDeathcam.Components
                 var difficulty = MonoSingleton<PrefsManager>.Instance.GetInt("difficulty");
                 var closeToPersonalBest = cgData.preciseWavesByDifficulty[difficulty] - _finalCyberRank.savedWaves <= 
                                           CybergrindDeathcam.LeaderboardsSkipThreshold.Value;
-                if (!closeToPersonalBest)
+                var showLeaderboardsUnconditionally =
+                    CybergrindDeathcam.AlwaysShowLeaderboardsStartingFrom.Value <= _finalCyberRank.savedWaves;
+                
+                if (!showLeaderboardsUnconditionally && !closeToPersonalBest)
                 {
                     GameProgressSaver.AddMoney(_finalCyberRank.totalPoints);
                     SceneHelper.RestartScene();

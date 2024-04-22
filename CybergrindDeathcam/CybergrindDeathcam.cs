@@ -25,6 +25,11 @@ namespace CybergrindDeathcam
             5f,
             "If SkipLeaderboards is enabled, defines the largest possible difference between your personal best and the current wave for the leaderboards to show up");
         
+        public static readonly ConfigEntry<float> AlwaysShowLeaderboardsStartingFrom = Config.Bind("CybergrindDeathcam", 
+            "AlwaysShowLeaderboardsStartingFrom",
+            999f,
+            "Starting from this wave, the leaderboards sequence will always be played no matter what");
+        
         private Harmony _harmony;
         private KillingFactors _killingFactors;
         
