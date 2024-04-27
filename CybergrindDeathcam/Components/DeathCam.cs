@@ -50,7 +50,7 @@ namespace CybergrindDeathcam.Components
             _timeController = TimeController.Instance;
             _finalCyberRank = GameObject.Find($"{CanvasPath}/Panel").GetComponent<FinalCyberRank>();
             _state = DeathcamState.FocusingOnKiller;
-            _skipLeaderboards = CybergrindDeathcam.SkipLeaderboards.Value;
+            _skipLeaderboards = CybergrindDeathcam.SkipLeaderboards.value;
 
             if (killer == null)
                 return;
@@ -73,9 +73,9 @@ namespace CybergrindDeathcam.Components
                 var cgData = GameProgressSaver.GetBestCyber();
                 var difficulty = MonoSingleton<PrefsManager>.Instance.GetInt("difficulty");
                 var closeToPersonalBest = cgData.preciseWavesByDifficulty[difficulty] - _finalCyberRank.savedWaves <= 
-                                          CybergrindDeathcam.LeaderboardsSkipThreshold.Value;
+                                          CybergrindDeathcam.LeaderboardsSkipThreshold.value;
                 var showLeaderboardsUnconditionally =
-                    CybergrindDeathcam.AlwaysShowLeaderboardsStartingFrom.Value <= _finalCyberRank.savedWaves;
+                    CybergrindDeathcam.AlwaysShowLeaderboardsStartingFrom.value <= _finalCyberRank.savedWaves;
                 
                 if (!showLeaderboardsUnconditionally && !closeToPersonalBest)
                 {

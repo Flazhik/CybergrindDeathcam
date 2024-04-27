@@ -10,23 +10,18 @@ This mod enables TF2-like camera upon death in Cyber Grind mode, allowing to see
 
 Please note that it doesn't track dead enemies.
 
-# Installation
-1. Download the **BepInEx** release from [here](https://github.com/BepInEx/BepInEx/releases/tag/v5.4.21). It's recommended to choose **BepInEx_x64** release unless you're certain you have a 32-bit system
-2. Extract the contents of **BepInEx** archive in your local **ULTRAKILL** folder. If you're not sure where this folder is located, find **ULTRAKILL** in your Steam Library > Right mouse click > **Properties** > **Local files** > **Browse**
-3. Download the CybergrindDeathcam archive [here](https://github.com/Flazhik/CybergrindDeathcam/releases/download/v1.0.1/CybergrindDeathcam.v1.0.1.zip), then extract its contents at **ULTRAKILL/BepInEx/plugins** (create *plugins* folder manually in case it's missing)
-
 ## Leaderboards skip (Optional feature)
-The mod is ready-to-go right off, but you can utilise its another feature.
-If the mod has already been launched at least once, there a config file inside your ULTRAKILL folder located at `BepInEx\config\CybergrindDeathcam\config.cfg`
+If you're willing to skip the leaderboards sequence at the end of your run and get back to the Terminal room ASAP,
+you can enable Leaderboards skip in **Options** > **Plugin config** > **CybergrindDeathcam**
 
-If you're willing to skip the leaderboards sequence at the end of your run and get back to Terminal room ASAP, you can change `SkipLeaderboards` value to `true`.
-In this case, CG will be restarted almost instantly upon your death.
+When enabled, this feature will restart CG almost instantly upon your death.
 
-You could also notice two parameters called `LeaderboardsSkipThreshold` and `AlwaysShowLeaderboardsStartingFrom`
+You could also notice two other parameters there:
 
-`LeaderboardsSkipThreshold`: if the difference between the wave you've just reached and your personal best is
-lower than `LeaderboardsSkipThreshold` value, the leaderboards sequence will still be played
-`AlwaysShowLeaderboardsStartingFrom`: if the value of the wave you've just reached exceeds this parameter,
+**Don't skip if PB is <= N waves away**: if the difference between the wave you've just reached and your personal best is
+lower than this value, the leaderboards sequence will still be played
+
+**Don't skip starting from wave**: if the value of the wave you've just reached exceeds this value,
 Leaderboards sequence will be played unconditionally and will never be skipped
 
 ## Extras
