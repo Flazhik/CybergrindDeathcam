@@ -19,8 +19,8 @@ namespace CybergrindDeathcam.Components
         private const float RisingDistance = 10;
         private const float RisingTime = 0.1f;
         private const float PointCameraAtKillerTime = 0.02f;
-        private const float ZoomInRate = 0.07f;
-        private const float TimeFreezeRate = 0.1f;
+        private const float ZoomInRate = 0.12f;
+        private const float TimeFreezeRate = 0.2f;
         private const float DistanceToKillerThreshold = 0.5f;
         private const string CanvasPath = "/Player/FinishCanvas (1)";
 
@@ -66,7 +66,7 @@ namespace CybergrindDeathcam.Components
             StartCoroutine(DeathCamRoutine());
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (Time.timeScale <= 0 && _skipLeaderboards)
             {
