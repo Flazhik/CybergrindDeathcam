@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{C966C72C-CDA5-41CF-8065-CD1E72BF32E5}") = "CybergrindDeathcam", "CybergrindDeathcam\CybergrindDeathcam.csproj", "{941412EE-5088-40AB-834A-40CA7F856E4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UKEnemyIdentifier", "UKEnemyIdentifier\UKEnemyIdentifier.csproj", "{23B65D15-307A-40B5-B785-189FDD449F1A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{941412EE-5088-40AB-834A-40CA7F856E4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{941412EE-5088-40AB-834A-40CA7F856E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{941412EE-5088-40AB-834A-40CA7F856E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{941412EE-5088-40AB-834A-40CA7F856E4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23B65D15-307A-40B5-B785-189FDD449F1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23B65D15-307A-40B5-B785-189FDD449F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23B65D15-307A-40B5-B785-189FDD449F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23B65D15-307A-40B5-B785-189FDD449F1A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

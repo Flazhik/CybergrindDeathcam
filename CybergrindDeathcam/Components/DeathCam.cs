@@ -4,6 +4,8 @@ using CybergrindDeathcam.Utils;
 using TMPro;
 using UnityEngine;
 using static CybergrindDeathcam.Utils.ReflectionUtils;
+using EnemyIdentifierExtension = UKEnemyIdentifier.Utils.EnemyIdentifierExtension;
+
 #pragma warning disable CS0649
 
 namespace CybergrindDeathcam.Components
@@ -22,6 +24,7 @@ namespace CybergrindDeathcam.Components
         private const float ZoomInRate = 0.12f;
         private const float TimeFreezeRate = 0.2f;
         private const float DistanceToKillerThreshold = 0.5f;
+        private const float TimeScaleThreshold = 0.2f;
         private const string CanvasPath = "/Player/FinishCanvas (1)";
 
         public EnemyIdentifier killer;
@@ -30,6 +33,7 @@ namespace CybergrindDeathcam.Components
         private GameObject _killerObj;
         private float _killerHeight;
         private bool _skipLeaderboards;
+        private bool _skipIgnored;
         
         private NewMovement _nm;
         private TimeController _timeController;
@@ -66,24 +70,30 @@ namespace CybergrindDeathcam.Components
             StartCoroutine(DeathCamRoutine());
         }
 
+        private void Update()
+        {
+            if (Time.timeScale > TimeScaleThreshold || !_skipLeaderboards || _skipIgnored)
+                return;
+            
+            var cgData = GameProgressSaver.GetBestCyber();
+            var difficulty = MonoSingleton<PrefsManager>.Instance.GetInt("difficulty");
+            var closeToPersonalBest = cgData.preciseWavesByDifficulty[difficulty] - _finalCyberRank.savedWaves <= 
+                                      CybergrindDeathcam.LeaderboardsSkipThreshold.value;
+            var showLeaderboardsUnconditionally =
+                CybergrindDeathcam.AlwaysShowLeaderboardsStartingFrom.value <= _finalCyberRank.savedWaves;
+
+            if (showLeaderboardsUnconditionally || closeToPersonalBest)
+            {
+                _skipIgnored = true;
+                return;
+            }
+
+            GameProgressSaver.AddMoney(_finalCyberRank.totalPoints);
+            SceneHelper.RestartScene();
+        }
+
         private void FixedUpdate()
         {
-            if (Time.timeScale <= 0 && _skipLeaderboards)
-            {
-                var cgData = GameProgressSaver.GetBestCyber();
-                var difficulty = MonoSingleton<PrefsManager>.Instance.GetInt("difficulty");
-                var closeToPersonalBest = cgData.preciseWavesByDifficulty[difficulty] - _finalCyberRank.savedWaves <= 
-                                          CybergrindDeathcam.LeaderboardsSkipThreshold.value;
-                var showLeaderboardsUnconditionally =
-                    CybergrindDeathcam.AlwaysShowLeaderboardsStartingFrom.value <= _finalCyberRank.savedWaves;
-                
-                if (!showLeaderboardsUnconditionally && !closeToPersonalBest)
-                {
-                    GameProgressSaver.AddMoney(_finalCyberRank.totalPoints);
-                    SceneHelper.RestartScene();
-                }
-            }
-            
             if (KillerIsDeadOrUnknown())
             {
                 if (_skipLeaderboards)
@@ -91,7 +101,7 @@ namespace CybergrindDeathcam.Components
                 Time.timeScale = _timeController.timeScale * _timeController.timeScaleModifier;
                 return;
             }
-                
+            
             switch (_state)
             {
                 case DeathcamState.FocusingOnKiller:
@@ -219,7 +229,7 @@ namespace CybergrindDeathcam.Components
             var notification = Instantiate(_notificationPrefab, canvas.transform);
             notification.transform.SetSiblingIndex(0);
             var text = notification.transform.Find("KillerName").GetComponent<TextMeshProUGUI>();
-            text.text = EnemyNames.GetEnemyName(killer.enemyType);
+            text.text = EnemyIdentifierExtension.GetEnemyName(killer).ToUpper();
         }
     }
 

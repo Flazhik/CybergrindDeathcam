@@ -2,11 +2,9 @@
 using System.Reflection;
 using BepInEx;
 using CybergrindDeathcam.Components;
-using CybergrindDeathcam.Patches;
-using HarmonyLib;
 using PluginConfig.API;
 using PluginConfig.API.Fields;
-using UnityEngine.SceneManagement;
+using UKEnemyIdentifier.Components;
 
 namespace CybergrindDeathcam
 
@@ -21,9 +19,6 @@ namespace CybergrindDeathcam
         
         private static PluginConfigurator _config;
         
-        private Harmony _harmony;
-        private KillingFactors _killingFactors;
-
         private static void SetupConfig()
         {
             _config = PluginConfigurator.Create(PluginInfo.NAME, PluginInfo.GUID);
@@ -45,39 +40,22 @@ namespace CybergrindDeathcam
             LeaderboardsSkipThreshold.hidden = !value;
             AlwaysShowLeaderboardsStartingFrom.hidden = !value;
         }
-        
+
         private void Awake()
         {
             AssetsManager.Instance.LoadAssets();
             AssetsManager.Instance.RegisterPrefabs();
-            
-            SceneManager.sceneLoaded += OnSceneLoaded;
-            _killingFactors = KillingFactors.Instance;
-            _harmony = new Harmony(PluginInfo.GUID);
             SetupConfig();
-        }
-        
-        private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
-        {
-            NewMovementPatch.DeadAlready = false;
-            if (scene != SceneManager.GetActiveScene())
-                return;
 
-            switch (SceneHelper.CurrentScene)
+            EnemyIdentifierManager.Instance.OnPlayerHurt += e =>
             {
-                case "Endless":
-                {
-                    _killingFactors = KillingFactors.Instance;
-                    _harmony.PatchAll();
-                    break;
-                }
+                if (!e.PlayerIsKilled || SceneHelper.CurrentScene != "Endless")
+                    return;
 
-                default:
-                {
-                    _harmony.UnpatchSelf();
-                    break;
-                }
-            }
+                var deathCam = NewMovement.Instance.gameObject.AddComponent<DeathCam>();
+                deathCam.killer = e.EnemyId;
+                deathCam.enabled = true;
+            };
         }
     }
 }
