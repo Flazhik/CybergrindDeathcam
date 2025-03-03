@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace UKEnemyIdentifier.Utils
 {
@@ -25,10 +26,25 @@ namespace UKEnemyIdentifier.Utils
             { EnemyType.Soldier, "Soldier" },
             { EnemyType.Turret, "Turret" },
             { EnemyType.Filth, "Filth" },
-            { EnemyType.Idol, "Idol" }
+            { EnemyType.Puppet, "Puppet" },
+            { EnemyType.V2, "V2" },
+            { EnemyType.V2Second, "V2" },
+            { EnemyType.Gabriel, "Gabriel, Judge of Hell" },
+            { EnemyType.GabrielSecond, "Gabriel, Apostate of Hate" },
+            { EnemyType.Mandalore, "Mysterious Druid Knight (& Owl)" },
+            { EnemyType.FleshPrison, "Flesh Prison" },
+            { EnemyType.FleshPanopticon, "Flesh Panopticon" },
         };
-        
-        public static string GetEnemyName(this EnemyIdentifier value) =>
-            EnemyNamesDict.TryGetValue(value.enemyType, out var name) ? name : "UNKNOWN ENTITY";
+
+        public static string GetEnemyName(this EnemyIdentifier value)
+        {
+            // Smelly, but it works
+            if (value.FullName != "None")
+                return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.FullName.ToLower());
+            
+            return EnemyNamesDict.TryGetValue(value.enemyType, out var name)
+                ? name
+                : "Unknown Entity";
+        }
     }
 }

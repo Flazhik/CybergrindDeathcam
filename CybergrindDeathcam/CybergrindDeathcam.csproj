@@ -48,6 +48,8 @@
         <Compile Include="AssetsManager.cs" />
         <Compile Include="Components\DeathCam.cs" />
         <Compile Include="CybergrindDeathcam.cs" />
+        <Compile Include="Patches\DeathSequencePatch.cs" />
+        <Compile Include="Patches\FinalCyberRankPatch.cs" />
         <Compile Include="PluginInfo.cs" />
         <Compile Include="PrefabAsset.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
@@ -57,7 +59,6 @@
           <DependentUpon>Resources.resx</DependentUpon>
         </Compile>
         <Compile Include="Utils\EnemyIdentifierExtension.cs" />
-        <Compile Include="Utils\EnemyNames.cs" />
         <Compile Include="Utils\ReflectionUtils.cs" />
     </ItemGroup>
     <ItemGroup>

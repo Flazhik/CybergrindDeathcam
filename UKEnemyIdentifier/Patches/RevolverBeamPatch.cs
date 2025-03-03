@@ -22,7 +22,7 @@ namespace UKEnemyIdentifier.Patches
             {
                 if (codeInstructions[i].opcode != Stloc_S
                     || !(codeInstructions[i].operand is LocalBuilder)
-                    || ((LocalBuilder)codeInstructions[i].operand).LocalIndex != 9)
+                    || ((LocalBuilder)codeInstructions[i].operand).LocalIndex != 7)
                     continue;
                 
                 var explosionOperand = (LocalBuilder)codeInstructions[i].operand;
@@ -71,7 +71,7 @@ namespace UKEnemyIdentifier.Patches
                 (Call, Method(typeof(EnemyIdentifierManager), "get_Instance")),
                 (Ldarg_0, null),
                 (Ldloc_S, explosion),
-                (Callvirt, Method(typeof(EnemyIdentifierManager), "RegisterRevolverBeamExplosion", new [] { typeof(RevolverBeam), typeof(Explosion) })),
+                (Callvirt, Method(typeof(EnemyIdentifierManager), "RegisterExplosion", new [] { typeof(Component), typeof(Explosion) })),
                 (Nop, null)));
         }
     }

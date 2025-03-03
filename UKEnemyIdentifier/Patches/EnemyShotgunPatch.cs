@@ -24,7 +24,7 @@ namespace UKEnemyIdentifier.Patches
                 if (ProjectileOperand(codeInstructions[i]))
                     projectile = (LocalBuilder)codeInstructions[i].operand;
                 
-                if (!InjectionPoint(codeInstructions[i]))
+                if (!FireInjectionPoint(codeInstructions[i]))
                     continue;
                 
                 if (projectile != default)
@@ -35,8 +35,28 @@ namespace UKEnemyIdentifier.Patches
             return codeInstructions;
         }
         
-        private static bool InjectionPoint(CodeInstruction instruction) =>
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(EnemyShotgun), "AltFire")]
+        public static IEnumerable<CodeInstruction> EnemyShotgun_AltFire_Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            var codeInstructions = instructions.ToList();
+            for (var i = 0; i < codeInstructions.Count; i++)
+            {
+                if (!AltFireInjectionPoint(codeInstructions[i]))
+                    continue;
+
+                SetGrenadeHurtingFactor(codeInstructions, i);
+                break;
+            }
+
+            return codeInstructions;
+        }
+        
+        private static bool FireInjectionPoint(CodeInstruction instruction) =>
             instruction.opcode == Stfld && instruction.OperandIs(Field(typeof(Projectile), "spreaded"));
+        
+        private static bool AltFireInjectionPoint(CodeInstruction instruction) =>
+            instruction.opcode == Stfld && instruction.OperandIs(Field(typeof(Grenade), "enemy"));
 
         private static bool ProjectileOperand(CodeInstruction instruction) =>
             instruction.opcode == Ldloc_S
@@ -53,6 +73,15 @@ namespace UKEnemyIdentifier.Patches
                 (Ldfld, Field(typeof(EnemyShotgun), "eid")),
                 (Callvirt, Method(typeof(EnemyIdentifierManager), "RegisterFactor", new [] { typeof(GameObject), typeof(EnemyIdentifier) })),
                 (Nop, null)));
+        }
+        
+        private static void SetGrenadeHurtingFactor(List<CodeInstruction> instructions, int index)
+        {
+            instructions.InsertRange(index, IL(
+                (Ldloc_2, null),
+                (Ldarg_0, null),
+                (Ldfld, Field(typeof(EnemyShotgun), "eid")),
+                (Stfld, Field(typeof(Grenade), "originEnemy"))));
         }
     }
 }

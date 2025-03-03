@@ -5,12 +5,11 @@ using UnityEngine;
 using static HarmonyLib.AccessTools;
 using static System.Reflection.Emit.OpCodes;
 
-namespace UKEnemyIdentifier.Patches
+namespace CybergrindDeathcam.Patches
 {
     [HarmonyPatch(typeof(FinalCyberRank))]
-    public class FinalCyberRankPatch
+    public static class FinalCyberRankPatch
     {
-       
         [HarmonyTranspiler]
         [HarmonyPatch(typeof(FinalCyberRank), "Update")]
         public static IEnumerable<CodeInstruction> FinalCyberRank_Update_Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -33,7 +32,7 @@ namespace UKEnemyIdentifier.Patches
         
         private static void DisableCybergrindTimeFreeze(List<CodeInstruction> instructions, int index)
         {
-            instructions.RemoveRange(index - 7, 8);
+            instructions.RemoveRange(index - 22, 23);
         }
     }
 }

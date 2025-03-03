@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using HarmonyLib;
 using UKEnemyIdentifier.Components;
+using UnityEngine;
 using static HarmonyLib.AccessTools;
 using static System.Reflection.Emit.OpCodes;
 using static UKEnemyIdentifier.Utils.ReflectionUtils;
@@ -39,7 +40,7 @@ namespace UKEnemyIdentifier.Patches
                 (Call, Method(typeof(EnemyIdentifierManager), "get_Instance")),
                 (Ldarg_0, null),
                 (Ldloc_S, explosion),
-                (Callvirt, Method(typeof(EnemyIdentifierManager), "RegisterLightningStrikeExplosion", new [] { typeof(LightningStrikeExplosive), typeof(Explosion) })),
+                (Callvirt, Method(typeof(EnemyIdentifierManager), "RegisterExplosion", new [] { typeof(Component), typeof(Explosion) })),
                 (Nop, null)));
         }
     }
