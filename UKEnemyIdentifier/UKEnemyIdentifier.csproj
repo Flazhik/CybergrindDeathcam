@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{23B65D15-307A-40B5-B785-189FDD449F1A}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>UKEnemyIdentifier</RootNamespace>
+        <AssemblyName>UKEnemyIdentifier</AssemblyName>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup>
+        <ULTRAKILLPath>C:\Program Files (x86)\Steam\steamapps\common\ULTRAKILL</ULTRAKILLPath>
+        <ManagedDir>$(ULTRAKILLPath)\ULTRAKILL_Data\Managed\</ManagedDir>
+        <BepInExRootDir>$(ULTRAKILLPath)\BepInEx\</BepInExRootDir>
+        <BepInExCoreDir>$(BepInExRootDir)\core\</BepInExCoreDir>
+        <BepInExPluginsDir>$(BepInExRootDir)\plugins\</BepInExPluginsDir>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Components\EnemyIdentifierManager.cs" />
+        <Compile Include="Patches\BlackHoleProjectilePatch.cs" />
+        <Compile Include="Patches\CancerousRodentPatch.cs" />
+        <Compile Include="Patches\CoinPatch.cs" />
+        <Compile Include="Patches\DroneFleshPatch.cs" />
+        <Compile Include="Patches\EnemyNailgunPatch.cs" />
+        <Compile Include="Patches\EnemyRevolverPatch.cs" />
+        <Compile Include="Patches\FleshPrisonPatch.cs" />
+        <Compile Include="Patches\GabrielPatch.cs" />
+        <Compile Include="Patches\GabrielSecondPatch.cs" />
+        <Compile Include="Patches\MandalorePatch.cs" />
+        <Compile Include="Patches\MinosPrimePatch.cs" />
+        <Compile Include="Patches\MinotaurPatch.cs" />
+        <Compile Include="Patches\MortarLauncherPatch.cs" />
+        <Compile Include="Patches\NailPatch.cs" />
+        <Compile Include="Patches\SisyphusPrimePatch.cs" />
+        <Compile Include="Patches\V2Patch.cs" />
+        <Compile Include="Plugin.cs" />
+        <Compile Include="Patches\ContinuousBeamPatch.cs" />
+        <Compile Include="Patches\DronePatch.cs" />
+        <Compile Include="Patches\ExplosionPatch.cs" />
+        <Compile Include="Patches\FerrymanPatch.cs" />
+        <Compile Include="Patches\FireZonePatch.cs" />
+        <Compile Include="Patches\GuttermanPatch.cs" />
+        <Compile Include="Patches\LightningStrikeExplosivePatch.cs" />
+        <Compile Include="Patches\MannequinPatch.cs" />
+        <Compile Include="Patches\MassPatch.cs" />
+        <Compile Include="Patches\MassSpearPatch.cs" />
+        <Compile Include="Patches\MindflayerPatch.cs" />
+        <Compile Include="Patches\NewMovementPatch.cs" />
+        <Compile Include="Patches\PhysicalShockwavePatch.cs" />
+        <Compile Include="Patches\ProjectilePatch.cs" />
+        <Compile Include="Patches\RevolverBeamPatch.cs" />
+        <Compile Include="Patches\SisyphusPatch.cs" />
+        <Compile Include="Patches\SpiderBodyPatch.cs" />
+        <Compile Include="Patches\EnemyShotgunPatch.cs" />
+        <Compile Include="Patches\StatueBossPatch.cs" />
+        <Compile Include="Patches\SwingCheck2Patch.cs" />
+        <Compile Include="Patches\TurretPatch.cs" />
+        <Compile Include="Patches\VirtueInsigniaPatch.cs" />
+        <Compile Include="Patches\ZombieProjectilesPatch.cs" />
+        <Compile Include="Patches\ProjectileSpreadPatch.cs" />
+        <Compile Include="PluginInfo.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Utils\EnemyIdentifierExtension.cs" />
+        <Compile Include="Utils\ReflectionUtils.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="0Harmony">
+            <HintPath>$(BepInExCoreDir)0Harmony.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(ManagedDir)Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="BepInEx">
+            <HintPath>$(BepInExCoreDir)BepInEx.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>$(ManagedDir)UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(ManagedDir)UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AudioModule">
+            <HintPath>$(ManagedDir)UnityEngine.AudioModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(ManagedDir)UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+            <HintPath>$(ManagedDir)UnityEngine.UI.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.PhysicsModule">
+            <HintPath>$(ManagedDir)UnityEngine.PhysicsModule.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="packages.config" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <Target Name="CopyModDlls" AfterTargets="CopyFilesToOutputDirectory">
+        <Copy SourceFiles="$(OutDir)/$(AssemblyName).dll" DestinationFolder="$(BepInExPluginsDir)UKEnemyIdentifier\" />
+    </Target>
+</Project>
